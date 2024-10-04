@@ -27,30 +27,38 @@ namespace API_HomeStay_HUB.Repositories
 
         public async Task<bool> addUser(User user, int typeUser)
         {
-            string userID_guid = Guid.NewGuid().ToString();
-            user.UserID = userID_guid;
-            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
-            await _context.Users.AddAsync(user);
-            bool isCreated = await _context.SaveChangesAsync() > 0;
-            if (isCreated)
+            var userDB = await _context.Users.SingleOrDefaultAsync(u => u.Username == user.Username);
+            if (userDB == null)
             {
-                string guid = Guid.NewGuid().ToString();
-                if (typeUser == 0)
+
+                string userID_guid = Guid.NewGuid().ToString();
+                user.UserID = userID_guid;
+                user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+                await _context.Users.AddAsync(user);
+                bool isCreated = await _context.SaveChangesAsync() > 0;
+
+                if (isCreated)
                 {
-                    await _context.Customers.AddAsync(new Customer { CusID = guid, UserID = userID_guid });
+                    string guid = Guid.NewGuid().ToString();
+                    if (typeUser == 0)
+                    {
+                        await _context.Customers.AddAsync(new Customer { CusID = guid, UserID = userID_guid });
+                    }
+                    else
+                    {
+                        await _context.Administrators.AddAsync(new Administrator { AdminID = guid, UserID = userID_guid });
+                    }
+
+                    // Lưu các thay đổi vào cơ sở dữ liệu
+                    return await _context.SaveChangesAsync() > 0;
                 }
                 else
                 {
-                    await _context.Administrators.AddAsync(new Administrator { AdminID = guid, UserID = userID_guid });
+                    return false;
                 }
+            }
+            return false;
 
-                // Lưu các thay đổi vào cơ sở dữ liệu
-                return await _context.SaveChangesAsync() > 0;
-            }
-            else
-            {
-                return false;
-            }
 
         }
 

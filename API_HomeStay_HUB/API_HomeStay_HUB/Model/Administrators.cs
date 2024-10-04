@@ -15,6 +15,6 @@ namespace API_HomeStay_HUB.Model
 
         [Column("roleID")]
         public string? RoleID { get; set; }
-        public virtual User? User { get; set; } // Mối quan hệ đến User
+        public  User? User { get; set; } // Mối quan hệ đến User
     }
 }

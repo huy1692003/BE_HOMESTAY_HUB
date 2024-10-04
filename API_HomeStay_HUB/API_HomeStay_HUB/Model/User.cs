@@ -48,8 +48,9 @@ namespace API_HomeStay_HUB.Model
 
         [Column("gender")]
         public int? Gender { get; set; }
-        public virtual Customer? Customer { get; set; } // Mối quan hệ 1-1
-        public virtual OwnerStay? OwnerStay { get; set; } // Mối quan hệ 1-1
-        public virtual Administrator? Administrator { get; set; } // Mối quan hệ 1-1
+        public Customer Customer { get; set; }
+        public OwnerStay OwnerStay { get; set; }
+        public Administrator Administrator { get; set; }
+
     }
 }

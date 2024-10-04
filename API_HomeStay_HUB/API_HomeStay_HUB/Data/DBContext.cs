@@ -33,28 +33,29 @@ namespace API_HomeStay_HUB.Data
         {
             modelBuilder.Entity<Role>()
                 .HasKey(r => r.RoleID);
+
             modelBuilder.Entity<User>()
                 .HasKey(r => r.UserID);
 
             modelBuilder.Entity<HomeStayAmenities>()
                .HasKey(h => new { h.AmenityID, h.HomestayID });
 
-            modelBuilder.Entity<User>()
-                .HasOne(u => u.Customer)
-                .WithOne(c => c.User)
-                .HasForeignKey<Customer>(c => c.UserID);
+            modelBuilder.Entity<Customer>()
+            .HasOne(c => c.User)
+            .WithOne(u => u.Customer)
+            .HasForeignKey<Customer>(c => c.UserID);
 
-            // Thiết lập mối quan hệ 1-1 giữa User và OwnerStay
-            modelBuilder.Entity<User>()
-                .HasOne(u => u.Customer)
-                .WithOne(o => o.User)
+            modelBuilder.Entity<OwnerStay>()
+                .HasOne(o => o.User)
+                .WithOne(u => u.OwnerStay)
                 .HasForeignKey<OwnerStay>(o => o.UserID);
 
-            modelBuilder.Entity<User>()
+            modelBuilder.Entity<Administrator>()
+                .HasOne(a => a.User)
+                .WithOne(u => u.Administrator)
+            .HasForeignKey<Administrator>(a => a.UserID);
 
-               .HasOne(u => u.Administrator)
-               .WithOne(o => o.User)
-               .HasForeignKey<Administrator>(o => o.UserID);
+
         }
 
     }

@@ -8,11 +8,11 @@ using System.Text;
 
 namespace API_HomeStay_HUB.Services
 {
-    public class UserService:IUserService
+    public class UserService : IUserService
     {
         private IUserRepository _userRepository;
         private IConfiguration _configuration;
-        public UserService(IConfiguration configuration,IUserRepository userRepository)
+        public UserService(IConfiguration configuration, IUserRepository userRepository)
         {
             _configuration = configuration;
             _userRepository = userRepository;
@@ -23,7 +23,7 @@ namespace API_HomeStay_HUB.Services
         }
         public Task<bool> changePassWord(string userID, string passOld, string passNew)
         {
-            return _userRepository.changePassWord(userID,passOld,passNew);
+            return _userRepository.changePassWord(userID, passOld, passNew);
         }
         public Task<bool> updateProfile(User user)
         {
@@ -35,17 +35,17 @@ namespace API_HomeStay_HUB.Services
         }
         public async Task<LoginResponseDTO?> loginUser(string username, string password)
         {
-            var userLogin= await _userRepository.loginUser(username, password);
+            var userLogin = await _userRepository.loginUser(username, password);
             if (userLogin != null)
             {
                 var tokenString = GenerateJwtToken(userLogin);
-                return new LoginResponseDTO { UserName=userLogin.Username,Token=tokenString };
+                return new LoginResponseDTO { UserName = userLogin.Username, FullName = userLogin.FullName, Token = tokenString };
 
             }
             return null;
-            
+
         }
-       
+
         private string GenerateJwtToken(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
