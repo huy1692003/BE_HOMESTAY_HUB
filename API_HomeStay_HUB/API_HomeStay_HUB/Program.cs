@@ -1,6 +1,9 @@
-using API_HomeStay_HUB.Data;
+﻿using API_HomeStay_HUB.Data;
 using API_HomeStay_HUB.Repositories;
+using API_HomeStay_HUB.Repositories.Intefaces;
+using API_HomeStay_HUB.Repositories.Interfaces;
 using API_HomeStay_HUB.Services;
+using API_HomeStay_HUB.Services.Interface;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -41,6 +44,22 @@ builder.Services.AddScoped<IPromotionRepository, PromotionRepository>();
 builder.Services.AddScoped<IPromotionService, PromotionService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IPartnershipRegRepository, PartnershipRegRepository>();
+builder.Services.AddScoped<IPartnershipRegService, PartnershipRegService>();
+builder.Services.AddScoped<IHomeStayRepository, HomeStayRepository>();
+builder.Services.AddScoped<IHomeStayService, HomeStayService>();
+builder.Services.AddScoped<IAmenitiesRepository, AmenitiesRepository>();
+builder.Services.AddScoped<IAmenitiesService, AmenitiesService>();
+
+// Cấu hình CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins",
+       policy => policy
+            .AllowAnyOrigin()  // Cho phép tất cả các nguồn (origins)
+            .AllowAnyMethod()  // Cho phép tất cả các phương thức HTTP (GET, POST, PUT, DELETE...)
+            .AllowAnyHeader()); // Cho phép tất cả các headers
+});
 
 var app = builder.Build();
 
@@ -52,6 +71,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Sử dụng CORS
+app.UseCors("AllowAllOrigins"); // Đảm bảo middleware này được sử dụng
 
 app.UseAuthorization();
 

@@ -1,6 +1,6 @@
 ﻿using API_HomeStay_HUB.DTOs;
 using API_HomeStay_HUB.Model;
-using API_HomeStay_HUB.Services;
+using API_HomeStay_HUB.Services.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,6 +11,7 @@ namespace API_HomeStay_HUB.Controllers
     public class CustomerController : ControllerBase
     {
         private readonly IUserService _userService;
+
         public CustomerController(IUserService userService)
         {
             _userService = userService;
@@ -39,5 +40,14 @@ namespace API_HomeStay_HUB.Controllers
             return NotFound("Login faild");
 
         }
+        //public async Task<IActionResult> GetAllUsersWithCustomers()
+        //{
+        //    var usersWithCustomers = from user in dbContext.Users
+        //                             join customer in dbContext.Customers
+        //                             on user.UserID equals customer.CustomerID
+        //                             select user;
+
+        //    return Ok(await usersWithCustomers.ToListAsync());
+        //}
     }
 }

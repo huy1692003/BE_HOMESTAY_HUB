@@ -1,6 +1,6 @@
 ﻿using API_HomeStay_HUB.Data;
 using API_HomeStay_HUB.Model;
-using API_HomeStay_HUB.Services;
+using API_HomeStay_HUB.Services.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;

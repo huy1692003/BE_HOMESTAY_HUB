@@ -19,6 +19,8 @@ namespace API_HomeStay_HUB.Data
         public DbSet<FAQ> FAQs { get; set; }
         public DbSet<Favorite> Favorites { get; set; }
         public DbSet<HomeStay> HomeStays { get; set; }
+        public DbSet<PartnershipReg> PartnershipRegs { get; set; }
+
         public DbSet<HomeStayAmenities> HomeStayAmenities { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<OwnerStay> OwnerStays { get; set; }
@@ -36,6 +38,10 @@ namespace API_HomeStay_HUB.Data
 
             modelBuilder.Entity<User>()
                 .HasKey(r => r.UserID);
+
+            modelBuilder.Entity<HomeStay>()
+           .Property(h => h.HomestayID)
+           .ValueGeneratedOnAdd();
 
             modelBuilder.Entity<HomeStayAmenities>()
                .HasKey(h => new { h.AmenityID, h.HomestayID });

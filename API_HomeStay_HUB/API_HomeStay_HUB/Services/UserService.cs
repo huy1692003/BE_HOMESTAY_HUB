@@ -1,6 +1,7 @@
 ﻿using API_HomeStay_HUB.DTOs;
 using API_HomeStay_HUB.Model;
-using API_HomeStay_HUB.Repositories;
+using API_HomeStay_HUB.Repositories.Intefaces;
+using API_HomeStay_HUB.Services.Interface;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;

@@ -1,8 +1,8 @@
 ﻿using API_HomeStay_HUB.Model;
 
-namespace API_HomeStay_HUB.Repositories
+namespace API_HomeStay_HUB.Services.Interface
 {
-    public interface IPromotionRepository
+    public interface IPromotionService
     {
         Task<IEnumerable<Promotion>> GetAll();
         Task<Promotion?> GetById(int ID);

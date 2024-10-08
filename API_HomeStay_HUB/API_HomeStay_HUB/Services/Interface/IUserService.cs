@@ -1,7 +1,7 @@
 ﻿using API_HomeStay_HUB.DTOs;
 using API_HomeStay_HUB.Model;
 
-namespace API_HomeStay_HUB.Services
+namespace API_HomeStay_HUB.Services.Interface
 {
     public interface IUserService
     {

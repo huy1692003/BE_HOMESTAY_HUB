@@ -1,5 +1,6 @@
 ﻿using API_HomeStay_HUB.Model;
-using API_HomeStay_HUB.Repositories;
+using API_HomeStay_HUB.Repositories.Intefaces;
+using API_HomeStay_HUB.Services.Interface;
 using Microsoft.EntityFrameworkCore;
 
 namespace API_HomeStay_HUB.Services

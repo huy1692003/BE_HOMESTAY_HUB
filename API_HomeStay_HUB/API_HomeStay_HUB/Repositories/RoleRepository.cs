@@ -1,5 +1,6 @@
 ﻿using API_HomeStay_HUB.Data;
 using API_HomeStay_HUB.Model;
+using API_HomeStay_HUB.Repositories.Intefaces;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;

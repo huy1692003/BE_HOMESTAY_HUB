@@ -1,6 +1,6 @@
 ﻿using API_HomeStay_HUB.Model;
 
-namespace API_HomeStay_HUB.Repositories
+namespace API_HomeStay_HUB.Repositories.Intefaces
 {
     public interface IRoleRepository
     {

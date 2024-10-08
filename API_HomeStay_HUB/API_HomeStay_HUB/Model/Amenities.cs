@@ -13,11 +13,7 @@ namespace API_HomeStay_HUB.Model
         [Column("name")]
         public string? Name { get; set; }
 
-        [Column("description")]
-        public string? Description { get; set; }
-
-        [Column("picture")]
-        public string? Picture { get; set; }
+       
     }
 
 }
