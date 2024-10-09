@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace API_HomeStay_HUB.Model
 {
     [Table("Favorites")]
-    public class Favorite
+    public class Favorites
     {
         [Key]
         [Column("favID")]

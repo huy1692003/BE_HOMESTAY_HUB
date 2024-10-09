@@ -24,30 +24,41 @@ namespace API_HomeStay_HUB.Controllers
         {
             if (partnership == null)
             {
-                return BadRequest("Not null Data");
+                return BadRequest("Dữ liệu không được trống");
             }
             else
             {
                 if (await _regService.registerParterShip(partnership))
                 {
-                    return Ok("Register success");
+                    return Ok("Đăng kí thành công hiện đang chờ phê duyệt");
                 }
-                return BadRequest("Register faild");
+                return BadRequest("Dữ liệu không hợp lệ");
 
             }
         }
-        [HttpGet("cancelPartReg/{idPart}/{rejectReson}")]
+        [HttpPut("cancelPartReg/{idPart}/{rejectReson}")]
         public async Task<IActionResult> cancelPartReg(int idPart,string rejectReson)
         {
             bool check= await _regService.cancel_PartnerShip(idPart,rejectReson);
             return check ? Ok() : NotFound();
         }
 
-        [HttpGet("confirmPartReg/{idPart}")]
+        [HttpPut("confirmPartReg/{idPart}")]
         public async Task<IActionResult> confirmPartReg(int idPart)
         {
             bool check = await _regService.confirm_PartnerShip(idPart);
             return check ? Ok() : NotFound();
         }
+        [HttpGet("getById/{idPart}")]
+        public async Task<IActionResult> getDetail_PartnerShip(int idPart)
+        {
+            var result= await _regService.getDetail_PartnerShip(idPart);
+            if(result!=null)
+            {
+                return Ok(result);
+            }  
+            return NotFound();
+        }
+
     }
 }

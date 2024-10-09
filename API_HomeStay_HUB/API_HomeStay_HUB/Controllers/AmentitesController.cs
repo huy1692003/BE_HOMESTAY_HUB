@@ -17,13 +17,13 @@ namespace API_HomeStay_HUB.Controllers
 
         // GET: api/Amenities
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Amenities>>> GetAmenities()
+        public async Task<IActionResult> GetAmenities()
         {
             var amenities = await _service.GetAllAmenitiesAsync();
             return Ok(amenities);
         }
 
-        // GET: api/Amenities/5
+        
         [HttpGet("getByID/{id}")]
         public async Task<ActionResult<Amenities>> GetAmenity(int id)
         {
@@ -76,9 +76,5 @@ namespace API_HomeStay_HUB.Controllers
             return NotFound("Không tìm thấy Amenity");
         }
 
-        private bool AmenityExists(int id)
-        {
-            return _service.AmenityExists(id);
-        }
     }
 }

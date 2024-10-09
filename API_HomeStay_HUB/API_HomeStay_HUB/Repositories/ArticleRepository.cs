@@ -19,6 +19,11 @@ namespace API_HomeStay_HUB.Repositories
             return await _context.Articles.ToListAsync();
         }
 
+        public async Task<IEnumerable<Article>> GetArticles_ByCate(int idCate)
+        {
+            return await _context.Articles.Where(s=>s.CateArtID==idCate).ToListAsync();
+        }
+
         public async Task<Article?> GetArticleById(int id)
         {
             return await _context.Articles.FindAsync(id);
@@ -28,6 +33,7 @@ namespace API_HomeStay_HUB.Repositories
         {
             try
             {
+                article.ArticleID = null;
                 _context.Articles.Add(article);
                 return await _context.SaveChangesAsync() > 0; // Trả về true nếu có thay đổi
             }
@@ -71,7 +77,7 @@ namespace API_HomeStay_HUB.Repositories
         public async Task<IEnumerable<Article>> SearchArticles(string keyword)
         {
             return await _context.Articles
-                .Where(a => a.Title.Contains(keyword) || a.Content.Contains(keyword))
+                .Where(a => a.Title!.Contains(keyword) || a.Content!.Contains(keyword))
                 .ToListAsync();
         }
 

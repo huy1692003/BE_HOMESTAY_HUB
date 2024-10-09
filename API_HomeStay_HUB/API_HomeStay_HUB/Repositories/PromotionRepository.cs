@@ -21,7 +21,7 @@ namespace API_HomeStay_HUB.Repositories
 
         public async Task<Promotion?> GetById(int ID)
         {
-            return await _db.Promotions.FindAsync(ID) ?? throw new KeyNotFoundException($"Promotion with ID {ID} not found."); // Ném ngoại lệ nếu không tìm thấy
+            return await _db.Promotions.FindAsync(ID);
         }
 
         public async Task<bool> Add(Promotion prm)

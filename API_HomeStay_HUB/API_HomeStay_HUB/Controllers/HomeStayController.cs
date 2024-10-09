@@ -1,5 +1,7 @@
-﻿using API_HomeStay_HUB.Model;
+﻿using API_HomeStay_HUB.DTOs;
+using API_HomeStay_HUB.Model;
 using API_HomeStay_HUB.Services.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,13 +26,14 @@ namespace API_HomeStay_HUB.Controllers
         }
 
         [HttpGet("search")]
+
         public async Task<IActionResult> SearchHomeStay()
         {
             var result = await _homeStayService.searchHomeStay();
             return Ok(result);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("getByID/{id}")]
         public async Task<IActionResult> GetHomeStayByID(int id)
         {
             var result = await _homeStayService.getHomeStayByID(id);
@@ -42,33 +45,28 @@ namespace API_HomeStay_HUB.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<IActionResult> AddHomeStay([FromBody] HomeStay homeStay)
+        public async Task<IActionResult> AddHomeStay([FromBody] HomeStayReqDTO homeStayReq)
         {
-            if (homeStay == null)
+            if (homeStayReq == null)
             {
-                return BadRequest("Homestay data is required.");
+                return BadRequest("Dữ liệu HomeStay không được trống");
             }
-            var isAdded = await _homeStayService.addHomeStay(homeStay);
-            if (!isAdded)
+            var isAdded = await _homeStayService.addHomeStay(homeStayReq);
+            if (isAdded == true)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error adding homestay.");
+                return CreatedAtAction(nameof(GetHomeStayByID), new { id = homeStayReq.HomeStay!.HomestayID }, homeStayReq);
             }
-            return Ok("add HomeStay success");
+            return BadRequest("Dữ liệu HomeStay không hợp lệ");
         }
 
         [HttpPut("update")]
-        public async Task<IActionResult> UpdateHomeStay([FromBody] HomeStay homeStay)
+        public async Task<IActionResult> UpdateHomeStay([FromBody] HomeStayReqDTO homeStayReq)
         {
-            if (homeStay == null || homeStay.HomestayID == null)
+            if (await _homeStayService.updateHomeStay(homeStayReq))
             {
-                return BadRequest("Homestay data with ID is required.");
+                return Ok("Cập nhật thành công HomeStay");
             }
-            var isUpdated = await _homeStayService.updateHomeStay(homeStay);
-            if (!isUpdated)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error updating homestay.");
-            }
-            return Ok("update success");
+            return BadRequest("Dữ liệu HomeStay cập nhật không hợp lệ");
         }
 
         [HttpDelete("{id}")]
@@ -79,7 +77,7 @@ namespace API_HomeStay_HUB.Controllers
             {
                 return NotFound();
             }
-            return Ok("delete success");
+            return Ok("Xóa thành công HomeStay");
         }
 
         [HttpPost("lock/{id}")]

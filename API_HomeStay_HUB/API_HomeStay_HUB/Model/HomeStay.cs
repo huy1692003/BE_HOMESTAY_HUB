@@ -8,7 +8,6 @@ namespace API_HomeStay_HUB.Model
     public class HomeStay
     {
         [Key]
-        
         [Column("homestayID")]
         public int? HomestayID { get; set; }
 
@@ -18,38 +17,35 @@ namespace API_HomeStay_HUB.Model
         [Column("ownerID")]
         public string? OwnerID { get; set; }
 
-        [Column("addressDetail")]
-        public string? AddressDetail { get; set; }
+        [Column("country")]
+        public string? Country { get; set; }
+
+        [Column("province")]  // Thêm trường tỉnh thành
+        public string? Province { get; set; }
 
         [Column("conscious")]
         public string? Conscious { get; set; }
 
-        [Column("country")]
-        public string? Country { get; set; }
+        [Column("addressDetail")]
+        public string? AddressDetail { get; set; }
 
         [Column("imagePreview")]
         public string? ImagePreview { get; set; }
 
-        [Column("imageDetail")]
-        public string? ImageDetail { get; set; }
-
-        [Column("description")]
-        public string? Description { get; set; }
-
         [Column("pricePerNight")]
         public double? PricePerNight { get; set; }
 
-        [Column("amenities")]
-        public string? Amenities { get; set; }
+        [Column("discountSecondNight")]  // Trường mới cho giảm giá từ đêm thứ 2
+        public double? DiscountSecondNight { get; set; }      
 
-        [Column("capacity")]
-        public int? Capacity { get; set; }
+        [Column("minPerson")]
+        public int? MinPerson { get; set; }
 
-        [Column("minStayDuration")]
-        public int? MinStayDuration { get; set; }
+        [Column("maxPerson")]
+        public int? MaxPerson { get; set; }
 
-        [Column("rentalCount")]
-        public int? RentalCount { get; set; }
+        [Column("isLocked")]
+        public int? IsLocked { get; set; }
 
         [Column("approvalStatus")]
         public int? ApprovalStatus { get; set; }
@@ -60,16 +56,6 @@ namespace API_HomeStay_HUB.Model
         [Column("updatedAt")]
         public DateTime? UpdatedAt { get; set; }
 
-        [Column("numberOfBedrooms")]
-        public int? NumberOfBedrooms { get; set; }
 
-        [Column("numberOfLivingRooms")]
-        public int? NumberOfLivingRooms { get; set; }
-
-        [Column("numberOfBathrooms")]
-        public int? NumberOfBathrooms { get; set; }
-
-        [Column("isLocked")]
-        public int? IsLocked { get; set; }
     }
 }

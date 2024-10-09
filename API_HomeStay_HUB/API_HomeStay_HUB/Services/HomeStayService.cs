@@ -1,4 +1,5 @@
-﻿using API_HomeStay_HUB.Model;
+﻿using API_HomeStay_HUB.DTOs;
+using API_HomeStay_HUB.Model;
 using API_HomeStay_HUB.Repositories.Intefaces;
 using API_HomeStay_HUB.Services.Interface;
 
@@ -13,23 +14,23 @@ namespace API_HomeStay_HUB.Services
             _homeStayRepository = homeStayRepository;
         }
 
-        public async Task<IEnumerable<HomeStay?>> getHomeStay()
+        public async Task<IEnumerable<HomeStayResDTO?>> getHomeStay()
         {
             return await _homeStayRepository.getHomeStay();
         }
-        public async Task<IEnumerable<HomeStay?>> searchHomeStay()
+        public async Task<IEnumerable<HomeStayResDTO?>> searchHomeStay()
         {
             return await _homeStayRepository.searchHomeStay();
         }
-        public async Task<HomeStay?> getHomeStayByID(int ID)
+        public async Task<HomeStayDetailDTO?> getHomeStayByID(int ID)
         {
             return await _homeStayRepository.getHomeStayByID(ID);
         }
-        public async Task<bool> addHomeStay(HomeStay homeStay)
+        public async Task<bool> addHomeStay(HomeStayReqDTO homeStay)
         {
             return await _homeStayRepository.addHomeStay(homeStay);
         }
-        public async Task<bool> updateHomeStay(HomeStay homeStay)
+        public async Task<bool> updateHomeStay(HomeStayReqDTO homeStay)
         {
             return await _homeStayRepository.updateHomeStay(homeStay);
         }

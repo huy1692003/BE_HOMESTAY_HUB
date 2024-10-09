@@ -22,7 +22,7 @@ namespace API_HomeStay_HUB.Controllers
         {
             if (await _userService.addUser(new Model.User { Username = reg.Username, Password = reg.Password, FullName = reg.Fullname, Gender = reg.Gender }, 0))
             {
-                return Ok("register success");
+                return Ok("Đăng kí thành công");
             }
 
             return BadRequest();
@@ -37,7 +37,7 @@ namespace API_HomeStay_HUB.Controllers
                 return Ok(LoginRes);
             }
 
-            return NotFound("Login faild");
+            return NotFound("Đăng nhập thất bại thông tin tài khoản hoặc mật khẩu không chính xác");
 
         }
         //public async Task<IActionResult> GetAllUsersWithCustomers()

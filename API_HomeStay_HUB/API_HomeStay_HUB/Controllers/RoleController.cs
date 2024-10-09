@@ -41,11 +41,11 @@ namespace API_HomeStay_HUB.Controllers
         {
             if (role == null)
             {
-                return BadRequest("Role cannot be null.");
+                return BadRequest("Không được để trống Role");
             }
 
             bool state = await _roleService.AddRole(role);
-            return state ? CreatedAtAction(nameof(GetRoleById), new { roleId = role.RoleID }, role) : BadRequest("Failed to add role.");
+            return state ? CreatedAtAction(nameof(GetRoleById), new { roleId = role.RoleID }, role) : BadRequest("Dữ liệu Role không hợp lệ");
         }
 
         // PUT: api/role/update
@@ -54,11 +54,11 @@ namespace API_HomeStay_HUB.Controllers
         {
             if (role == null || string.IsNullOrEmpty(role.RoleID))
             {
-                return BadRequest("Invalid role data.");
+                return BadRequest("Role không được để trống");
             }
 
             bool state = await _roleService.UpdateRole(role);
-            return state ? NoContent() : BadRequest("Failed to update role.");
+            return state ? NoContent() : BadRequest("Dữ liệu Role không hợp lệ");
         }
 
         // DELETE: api/role/delete/{roleId}
@@ -66,7 +66,7 @@ namespace API_HomeStay_HUB.Controllers
         public async Task<IActionResult> DeleteRole(string roleId)
         {
             bool state = await _roleService.DeleteRole(roleId);
-            return state ? NoContent() : NotFound("Role not found.");
+            return state ? NoContent() : NotFound();
         }
     }
 }

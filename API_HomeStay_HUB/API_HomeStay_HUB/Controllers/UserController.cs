@@ -21,5 +21,26 @@ namespace API_HomeStay_HUB.Controllers
 
             return Ok(usersWithCustomers);
         }
+        [HttpGet("getCustomer")]
+        public async Task<IActionResult> GetAllUCustomer()
+        {
+            var usersWithCustomers = await dbContext.Customers.ToListAsync();
+
+            return Ok(usersWithCustomers);
+        }
+        [HttpGet("getOwnerStay")]
+        public async Task<IActionResult> GetOwnerStay()
+        {
+            var usersWithCustomers = await dbContext.OwnerStays.ToListAsync();
+
+            return Ok(usersWithCustomers);
+        }
+        [HttpGet("getAdminstrator")]
+        public async Task<IActionResult> GetAdminStator()
+        {
+            var usersWithCustomers = await dbContext.Administrators.ToListAsync();
+
+            return Ok(usersWithCustomers);
+        }
     }
 }

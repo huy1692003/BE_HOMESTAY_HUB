@@ -16,6 +16,10 @@ namespace API_HomeStay_HUB.Services
         {
             return await _partnershipRegRepository.getbyStatus(status);
         }
+        public async Task<PartnershipReg?> getDetail_PartnerShip(int id)
+        {
+            return await _partnershipRegRepository.getDetail_PartnerShip(id);
+        }
         public async Task<bool> registerParterShip(PartnershipReg partnershipReg)
         {
             return await _partnershipRegRepository.registerParterShip(partnershipReg);

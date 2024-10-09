@@ -40,11 +40,13 @@ namespace API_HomeStay_HUB.Controllers
         {
             if (promotion == null)
             {
-                return BadRequest("Promotion cannot be null.");
+                return BadRequest("Promotion không được trống");
             }
 
             bool state = await _promotionService.Add(promotion);
-            return state ? CreatedAtAction(nameof(GetPromotionById), new { id = promotion.PrmID }, promotion) : BadRequest("Failed to add promotion.");
+            return state ?
+                CreatedAtAction(nameof(GetPromotionById), new { id = promotion.PrmID }, promotion) :
+                BadRequest("Promotion không hợp lệ.");
         }
 
         // PUT: api/promotion/update
@@ -53,11 +55,11 @@ namespace API_HomeStay_HUB.Controllers
         {
             if (promotion == null)
             {
-                return BadRequest("Invalid promotion data.");
+                return BadRequest("Promotion không được để trống");
             }
 
             bool state = await _promotionService.Update(promotion);
-            return state ? NoContent() : BadRequest("Failed to update promotion.");
+            return state ? NoContent() : BadRequest("Promotion không hợp lệ.");
         }
 
         // DELETE: api/promotion/delete/{id}
@@ -65,7 +67,7 @@ namespace API_HomeStay_HUB.Controllers
         public async Task<IActionResult> DeletePromotion(int id)
         {
             bool state = await _promotionService.Delete(id);
-            return state ? NoContent() : NotFound("Promotion not found.");
+            return state ? NoContent() : NotFound();
         }
     }
 }

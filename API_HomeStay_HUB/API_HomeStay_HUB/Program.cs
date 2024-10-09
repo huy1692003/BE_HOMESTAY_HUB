@@ -50,6 +50,17 @@ builder.Services.AddScoped<IHomeStayRepository, HomeStayRepository>();
 builder.Services.AddScoped<IHomeStayService, HomeStayService>();
 builder.Services.AddScoped<IAmenitiesRepository, AmenitiesRepository>();
 builder.Services.AddScoped<IAmenitiesService, AmenitiesService>();
+builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
+builder.Services.AddScoped<IArticleService, ArticleService>();
+builder.Services.AddScoped<ICategoryArticleRepository, CategoryArticleRepository>();
+builder.Services.AddScoped<ICategoryArticleService, CategoryArticleService>();
+builder.Services.AddScoped<IFavoritesRepository, FavoritesRepository>();
+builder.Services.AddScoped<IFavoritesService, FavoritesService>();
+builder.Services.AddScoped<IReviewAndRatingRepository, ReviewAndRatingRepository>();
+builder.Services.AddScoped<IReviewAndRatingService, ReviewAndRatingService>();
+builder.Services.AddScoped<IFAQRepository, FAQRepository>();
+builder.Services.AddScoped<IFAQService, FAQService>();
+
 
 // Cấu hình CORS
 builder.Services.AddCors(options =>

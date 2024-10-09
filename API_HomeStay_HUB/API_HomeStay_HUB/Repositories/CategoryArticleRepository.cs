@@ -31,6 +31,7 @@ namespace API_HomeStay_HUB.Repositories
         {
             try
             {
+                categoryArticle.CateID = null;
                 _context.CategoryArticles.Add(categoryArticle);
                 return await _context.SaveChangesAsync() > 0; // Trả về true nếu có thay đổi
             }
