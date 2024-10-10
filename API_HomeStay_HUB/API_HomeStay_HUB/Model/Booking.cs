@@ -21,10 +21,10 @@ namespace API_HomeStay_HUB.Model
         public int? HomeStayID { get; set; }
 
         [Column("checkInDate")]
-        public DateTime? CheckInDate { get; set; }
+        public DateOnly? CheckInDate { get; set; }
 
         [Column("checkOutDate")]
-        public DateTime? CheckOutDate { get; set; }
+        public DateOnly? CheckOutDate { get; set; }
 
         [Column("numberOfGuests")]
         public int? NumberOfGuests { get; set; }

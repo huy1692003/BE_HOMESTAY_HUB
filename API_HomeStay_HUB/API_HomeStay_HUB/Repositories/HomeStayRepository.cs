@@ -25,19 +25,52 @@ namespace API_HomeStay_HUB.Repositories
                               }).ToListAsync();
             return data;
         }
-        //Chưa fix
-        public async Task<IEnumerable<HomeStayResDTO?>> searchHomeStay()
+
+        public async Task<IEnumerable<HomeStayResDTO?>> searchHomeStay(SearchHomeStayDTO search, PaginateDTO paginate)
         {
+            // Lấy danh sách các homestay khả dụng trong khoảng thời gian tìm kiếm
+            var availableHomeStayIds = await GetAvailableHomeStays(search.DateIn, search.DateOut);
+
+            // Tính số lượng mục cần bỏ qua (skip) dựa trên Page và PageSize
+            int skip = (paginate.Page - 1) * paginate.PageSize;
+
+            // Truy vấn homestay với phân trang
             var data = await (from HomeStay in _dBContext.HomeStays
                               join DetailHomeStay in _dBContext.DetailHomeStays
                               on HomeStay.HomestayID equals DetailHomeStay.HomestayID
+                              where availableHomeStayIds.Contains(HomeStay.HomestayID)  // Chỉ lấy homestay không bị trùng lịch
+                              && (HomeStay.AddressDetail!.Contains(search.Location) ||
+                                  HomeStay.Country!.Contains(search.Location) ||
+                                  HomeStay.Province!.Contains(search.Location) ||
+                                  HomeStay.Conscious!.Contains(search.Location))
+                              && (search.NumberofGuest >= HomeStay.MinPerson
+                              && search.NumberofGuest <= HomeStay.MaxPerson)
                               select new HomeStayResDTO
                               {
                                   HomeStay = HomeStay,
                                   DetailHomeStay = DetailHomeStay,
-                              }).ToListAsync();
+                              })
+                              .Skip(skip)  // Bỏ qua các mục không cần thiết
+                              .Take(paginate.PageSize)  // Lấy số lượng mục dựa trên PageSize
+                              .ToListAsync();
+
             return data;
         }
+
+
+        public async Task<IEnumerable<int?>> GetAvailableHomeStays(DateOnly? dateIn, DateOnly? dateOut)
+        {
+            // Lấy danh sách ID của các homestay không bị trùng lịch đặt
+            var availableHomeStayIds = await _dBContext.HomeStays
+                .Where(hs => !_dBContext.Bookings.Any(bk =>
+                    bk.HomeStayID == hs.HomestayID && bk.IsConfirm == 1 &&
+                    dateIn < bk.CheckOutDate && dateOut > bk.CheckInDate))
+                .Select(hs => hs.HomestayID)
+                .ToListAsync();
+
+            return availableHomeStayIds;
+        }
+
 
         public async Task<HomeStayDetailDTO?> getHomeStayByID(int ID)
         {
@@ -111,7 +144,7 @@ namespace API_HomeStay_HUB.Repositories
                     //Cập nhật chi tiết Homestay
                     var existingDetail = await _dBContext.DetailHomeStays.FirstOrDefaultAsync(d => d.HomestayID == req.HomeStay.HomestayID);
                     _dBContext.Entry(existingDetail!).CurrentValues.SetValues(req.DetailHomeStay);
-                    
+
                 }
 
                 // Cập nhật các tiện nghi của HomeStay
@@ -135,11 +168,11 @@ namespace API_HomeStay_HUB.Repositories
                 }
 
                 // Lưu thay đổi vào cơ sở dữ liệu
-                return await _dBContext.SaveChangesAsync()>0;
+                return await _dBContext.SaveChangesAsync() > 0;
             }
             catch (Exception ex)
             {
-                
+
                 return false;
             }
         }

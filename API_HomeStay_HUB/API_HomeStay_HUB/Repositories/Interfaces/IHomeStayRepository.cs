@@ -6,7 +6,7 @@ namespace API_HomeStay_HUB.Repositories.Intefaces
     public interface IHomeStayRepository
     {
         Task<IEnumerable<HomeStayResDTO?>> getHomeStay();
-        Task<IEnumerable<HomeStayResDTO?>> searchHomeStay();
+        Task<IEnumerable<HomeStayResDTO?>> searchHomeStay(SearchHomeStayDTO search,PaginateDTO paginate);
         Task<HomeStayDetailDTO?> getHomeStayByID(int ID);
         Task<bool> addHomeStay(HomeStayReqDTO homeStay);
         Task<bool> updateHomeStay(HomeStayReqDTO homeStay);

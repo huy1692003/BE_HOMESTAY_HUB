@@ -25,11 +25,11 @@ namespace API_HomeStay_HUB.Controllers
             return Ok(result);
         }
 
-        [HttpGet("search")]
+        [HttpPost("searchByCustomer")]
 
-        public async Task<IActionResult> SearchHomeStay()
+        public async Task<IActionResult> searchHomeStay([FromBody]SearchHomeStayDTO search,[FromQuery] PaginateDTO paginate)
         {
-            var result = await _homeStayService.searchHomeStay();
+            var result = await _homeStayService.searchHomeStay(search,paginate);
             return Ok(result);
         }
 

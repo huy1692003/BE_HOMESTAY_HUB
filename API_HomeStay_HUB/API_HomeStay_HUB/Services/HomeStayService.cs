@@ -18,9 +18,9 @@ namespace API_HomeStay_HUB.Services
         {
             return await _homeStayRepository.getHomeStay();
         }
-        public async Task<IEnumerable<HomeStayResDTO?>> searchHomeStay()
+        public async Task<IEnumerable<HomeStayResDTO?>> searchHomeStay(SearchHomeStayDTO search, PaginateDTO paginate)
         {
-            return await _homeStayRepository.searchHomeStay();
+            return await _homeStayRepository.searchHomeStay(search,paginate);
         }
         public async Task<HomeStayDetailDTO?> getHomeStayByID(int ID)
         {

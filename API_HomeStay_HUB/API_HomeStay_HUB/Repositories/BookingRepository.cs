@@ -52,7 +52,6 @@ namespace API_HomeStay_HUB.Repositories
             }
             return false;
 
-
         }
         public async Task<bool> cancelBooking(int idBooking, string reasonCancel)
         {
@@ -65,7 +64,7 @@ namespace API_HomeStay_HUB.Repositories
             }
             return false;
         }
-        public async Task<bool> checkDateExitedBooking(int? idHomestay, DateTime? dateIn, DateTime? dateOut)
+        public async Task<bool> checkDateExitedBooking(int? idHomestay, DateOnly? dateIn, DateOnly? dateOut)
         {
             var bookingByHomeStays = await _dbContext.Bookings
                 .Where(bk => bk.HomeStayID == idHomestay && bk.IsConfirm == 1 &&
