@@ -13,17 +13,17 @@ namespace API_HomeStay_HUB.Model
         [Column("bookingID")]
         public int? BookingID { get; set; }
 
-        [Column("approvalStatus")]
-        public int? ApprovalStatus { get; set; } = 0;
+        [Column("paymentTime")]
+        public DateTime? PaymentTime { get; set; } 
 
-        [Column("paymentStatus")]
-        public int? PaymentStatus { get; set; } = 0;
+        [Column("checkInTime")]
+        public DateTime? CheckInTime { get; set; } 
 
-        [Column("checkInStatus")]
-        public int? CheckInStatus { get; set; } = 0;
+        [Column("checkOutTime")]
+        public DateTime? CheckOutTime { get; set; }
 
-        [Column("checkOutStatus")]
-        public int? CheckOutStatus { get; set; } = 0;
+        [Column("completeStatus")]
+        public string? CompleteStatus { get; set; }
 
         [Column("stepOrder")]
         public int? StepOrder { get; set; }
@@ -32,9 +32,8 @@ namespace API_HomeStay_HUB.Model
         public DateTime? CreatedAt { get; set; } = DateTime.Now;
 
         [Column("updatedAt")]
-        public DateTime? UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }    
 
-      
     }
 
 }

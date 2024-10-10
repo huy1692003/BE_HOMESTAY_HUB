@@ -20,7 +20,10 @@ namespace API_HomeStay_HUB.Model
         public string? CusID { get; set; }
 
         [Column("paymentType")]
-        public int PaymentType { get; set; }
+        public int? PaymentType { get; set; }
+
+        [Column("notePayment")]
+        public string? NotePayment { get; set; }
 
         [Column("amount")]
         public float? Amount { get; set; }
@@ -33,7 +36,6 @@ namespace API_HomeStay_HUB.Model
 
         [Column("paymentDate")]
         public DateTime? PaymentDate { get; set; }
-
        
     }
 

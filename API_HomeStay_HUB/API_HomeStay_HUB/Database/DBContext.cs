@@ -43,6 +43,7 @@ namespace API_HomeStay_HUB.Data
            .Property(h => h.HomestayID)
            .ValueGeneratedOnAdd();
 
+
             modelBuilder.Entity<HomeStayAmenities>()
                .HasKey(h => new { h.AmenityID, h.HomestayID });
 
